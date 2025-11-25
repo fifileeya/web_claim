@@ -944,6 +944,7 @@ async function generatePDF(){
     document.getElementById('pdf-expenses').classList.remove('printing');
 
     // Save PDF
+    const today = new Date().toISOString().split('T')[0];
     const companyName = expCompany.replace(/[^a-z0-9]/gi, '_');
     pdf.save(`${companyName}_Disbursement_Expense_${today}.pdf`);
 }
