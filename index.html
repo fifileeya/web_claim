@@ -531,7 +531,7 @@
     </table>
     <div class="pdf-total">Total $<span id="pdf-disb-total"></span></div>
     <div style="margin: 20px 0; font-size: 14px;">
-        <div>Paid on (M): <span id="pdf-disb-month"></span></div>
+        <div>Paid on: <span id="pdf-disb-paid-date"></span></div>
         <div style="margin-top: 10px;">
             by <span id="pdf-disb-payment"></span>
         </div>
@@ -560,7 +560,7 @@
         <tbody id="pdf-exp-tbody"></tbody>
     </table>
     <div class="pdf-total">
-        Total Amount <span id="pdf-exp-orig-curr"></span> <span id="pdf-exp-total-orig"></span>
+        Total Amount <span style="margin-left: 40px;"id="pdf-exp-orig-curr"></span> <span id="pdf-exp-total-orig"></span>
         <span style="margin-left: 40px;"id="pdf-exp-pay-curr"></span> <span id="pdf-exp-total-pay"></span>
     </div>
     <div style="margin: 20px 0; font-style: italic; font-size: 12px;">
@@ -833,8 +833,7 @@ async function generatePDF(){
     // Payment date - extract month
     const paidDate = document.getElementById('disb-paid-date').value;
     if (paidDate) {
-        const date = new Date(paidDate);
-        document.getElementById('pdf-disb-month').textContent = date.getMonth() + 1;
+    document.getElementById('pdf-disb-paid-date').textContent = paidDate;
     }
 
     // Payment method
@@ -945,8 +944,8 @@ async function generatePDF(){
     document.getElementById('pdf-expenses').classList.remove('printing');
 
     // Save PDF
-    const today = new Date().toISOString().split('T')[0];
-    pdf.save(`TPT_Disbursement_Expense_${today}.pdf`);
+    const companyName = expCompany.replace(/[^a-z0-9]/gi, '_');
+    pdf.save(`${companyName}_Disbursement_Expense_${today}.pdf`);
 }
 
 // Default dates and initialization
